@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\SectionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +22,19 @@ Route::get('/', function () {
 //stop register route
 Auth::routes(['register' => false]);
 //start the main routes
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    //Sections Routes
+    Route::resource('sections', SectionController::class)->except('show');
+    //Inovices Route
+    Route::resource('invoices', InvoiceController::class, [
+        'names' => [
+            'index'     => 'invoices',
+            'create'    => 'invoices.create',
+            'store'     => 'invoices.store',
+            'edit'      => 'invoices.edit',
+            'update'    => 'invoices.update',
+            'destroy'   => 'invoices.delete',
+        ]
+    ]);
+});

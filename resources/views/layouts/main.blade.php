@@ -26,6 +26,8 @@
         <!-- container -->
         <div class="container-fluid">
             @yield('page-header')
+            @include('includes.success')
+            @include('includes.errors')
             @yield('content')
             @include('includes.sidebar')
             @include('includes.models')
