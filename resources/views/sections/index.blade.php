@@ -17,8 +17,7 @@
 <div class="breadcrumb-header justify-content-between">
     <div class="my-auto">
         <div class="d-flex">
-            <h4 class="content-title mb-0 my-auto">الاعدادات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                الاقسام</span>
+            <h4 class="content-title mb-0 my-auto">الأقسام</h4>
         </div>
     </div>
 </div>
@@ -62,14 +61,14 @@
                                     <td>{{ $x->description }}</td>
                                     <td>
                                         {{-- @can('تعديل قسم') --}}
-                                            <a class="btn btn-sm btn-info"
+                                            <a class="btn btn-info"
                                                 href="{{ route('sections.edit',$x->id) }}"><i class="las la-pen"></i></a>
 {{--                                         @endcan
  --}}
                                         {{-- @can('حذف قسم') --}}
-                                        <button class="btn btn-danger btn-sm " data-id="{{ $x->id }}"
+                                        <button class="btn btn-danger" data-id="{{ $x->id }}"
                                             data-name="{{ $x->name }}" data-toggle="modal"
-                                            data-target="#modaldemo9">حذف</button>
+                                            data-target="#modaldemo9"><i class="las la-trash"></i></button>
 {{--                                         @endcan
  --}}
                                                 </td>

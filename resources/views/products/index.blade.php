@@ -70,23 +70,13 @@
                                         <td>{{ $Product->description }}</td>
                                         <td>
                                             {{-- @can('تعديل منتج')--}}
-                                            <button class="btn btn-success btn-sm"
-                                                data-name="{{ $Product->name }}" 
-                                                data-pro_id="{{ $Product->id }}"
-                                                data-section_name="{{ $Product->section->name }}"
-                                                data-sectiond_id="{{ $Product->section_id }}"
-                                                data-description="{{ $Product->description }}" 
-                                                data-toggle="modal" 
-                                                data-target="#edit_Product">
-                                                تعديل
-                                            </button>
-                                        
+                                            <a class="btn btn-info" href="{{ route('products.edit',$Product->id) }}"><i class="las la-pen"></i></a>
                                             {{-- @endcan --}}
 
                                             {{-- @can('حذف منتج')--}}
-                                                <button class="btn btn-danger btn-sm " data-pro_id="{{ $Product->id }}"
+                                                <button class="btn btn-danger" data-id="{{ $Product->id }}"
                                                     data-name="{{ $Product->name }}" data-toggle="modal"
-                                                    data-target="#modaldemo9">حذف</button>
+                                                    data-target="#modaldemo9"><i class="las la-trash"></i></button>
                                             {{-- @endcan --}}
 
                                         </td>
@@ -101,7 +91,7 @@
         <!-- add -->
         @include('products.create')
         <!-- edit -->
-        @include('products.edit')
+        {{-- @include('products.edit') --}}
         <!-- delete -->
         @include('products.delete')
 
@@ -160,12 +150,11 @@
         //delete modal
         $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var pro_id = button.data('pro_id')
-            var name = button.data('name')
+            var id = button.data('id')
+            var product_name = button.data('name')
             var modal = $(this)
-
-            modal.find('.modal-body #pro_id').val(pro_id);
-            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #product_name').val(product_name);
         })
 
     </script>

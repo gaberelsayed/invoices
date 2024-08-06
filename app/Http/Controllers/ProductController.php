@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Http\Request;
@@ -29,16 +31,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
-        $this->validate($request, [
-
-            'name'          => 'required|max:255',
-            'section_id'    => 'required'
-        ],[
-            'name.required' =>'يرجي ادخال اسم المنتج',
-            'section_id.required'   => 'اسم القسم مطلوب'
-        ]);
         Product::create([
             'name'          => $request->name,
             'description'   => $request->description,
@@ -61,20 +55,15 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $sections = Section::all();
+        return view('products.edit',compact('product','sections'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $this->validate($request, [
-
-            'name'          => 'required|max:255',
-        ],[
-            'name.required' =>'يرجي ادخال اسم المنتج',
-        ]);
         $product->update([
             'name'          => $request->name,
             'description'   => $request->description
@@ -86,8 +75,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
+        $product = Product::findOrFail($request->id);
         $product->delete();
         session()->flash('success', 'تم حذف المنتج بنجاح');
         return redirect()->back();
