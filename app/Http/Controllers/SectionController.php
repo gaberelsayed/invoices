@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditSectionRequest;
 use App\Http\Requests\SectionRequest;
-use App\Http\Requests\SectionUpdateRequest;
+use App\Http\Requests\UpdateSectionRequest;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,26 +55,14 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+        return view('sections.edit',compact('section'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Section $section)
+    public function update(UpdateSectionRequest $request, Section $section)
     {
-        $id = $request->id;
-
-        $this->validate($request, [
-
-            'name' => 'required|max:255|unique:sections,name,'.$id,
-        ],[
-
-            'name.required' =>'يرجي ادخال اسم القسم',
-            'name.unique' =>'اسم القسم مسجل مسبقا',
-
-        ]);
-
         $section->update([
             'name' => $request->name,
             'description' => $request->description,

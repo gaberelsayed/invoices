@@ -62,17 +62,14 @@
                                     <td>{{ $x->description }}</td>
                                     <td>
                                         {{-- @can('تعديل قسم') --}}
-                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-section_name="{{ $x->name }}"
-                                                data-description="{{ $x->description }}" data-toggle="modal"
-                                                href="#exampleModal2" title="تعديل"><i class="las la-pen"></i></a>
+                                            <a class="btn btn-sm btn-info"
+                                                href="{{ route('sections.edit',$x->id) }}"><i class="las la-pen"></i></a>
 {{--                                         @endcan
  --}}
                                         {{-- @can('حذف قسم') --}}
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-section_name="{{ $x->name }}"
-                                                data-toggle="modal" href="#modaldemo9" title="حذف"><i
-                                                    class="las la-trash"></i></a>
+                                        <button class="btn btn-danger btn-sm " data-id="{{ $x->id }}"
+                                            data-name="{{ $x->name }}" data-toggle="modal"
+                                            data-target="#modaldemo9">حذف</button>
 {{--                                         @endcan
  --}}
                                                 </td>
@@ -87,8 +84,9 @@
 
 
     @include('sections.add')
-    @include('sections.edit')
     @include('sections.delete')
+    {{-- @include('sections.edit')
+     --}}
     <!-- row closed -->
 </div>
 @endsection
@@ -127,14 +125,11 @@
         modal.find('.modal-body #description').val(description);
         modal.find('.modal-body #edit_form').attr('action', link);
     })
-
-</script>
-
-<script>
+    //delete modal
     $('#modaldemo9').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
-        var section_name = button.data('section_name')
+        var section_name = button.data('name')
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
         modal.find('.modal-body #section_name').val(section_name);

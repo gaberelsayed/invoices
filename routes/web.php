@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
 
 /*
@@ -26,15 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     //Sections Routes
     Route::resource('sections', SectionController::class)->except('show');
+    //products routes
+    Route::resource('products', ProductController::class)->except('show');
     //Inovices Route
-    Route::resource('invoices', InvoiceController::class, [
-        'names' => [
-            'index'     => 'invoices',
-            'create'    => 'invoices.create',
-            'store'     => 'invoices.store',
-            'edit'      => 'invoices.edit',
-            'update'    => 'invoices.update',
-            'destroy'   => 'invoices.delete',
-        ]
-    ]);
+    Route::resource('invoices', InvoiceController::class);
 });

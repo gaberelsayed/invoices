@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class SectionUpdateRequest extends FormRequest
+class UpdateSectionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +22,14 @@ class SectionUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $sectionId = $this->route('sections');
-
+        $id = $this->route('section');
         return [
-            'name' => 'required|min:3|unique:sections,name,' . $sectionId,
-        ];
+            'name' => [
+                'required',
+                'min:3',
+                Rule::unique('sections')->ignore($id),
+            ],
+    ];
     }
     /**
      * validtion messages

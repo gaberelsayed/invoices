@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Section;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $sections = Section::all();
+        $products = Product::all();
+        return view('products.index',compact('products','sections'));
     }
 
     /**
@@ -28,7 +31,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+
+            'name'          => 'required|max:255',
+            'section_id'    => 'required'
+        ],[
+            'name.required' =>'يرجي ادخال اسم المنتج',
+            'section_id.required'   => 'اسم القسم مطلوب'
+        ]);
+        Product::create([
+            'name'          => $request->name,
+            'description'   => $request->description,
+            'section_id'    => $request->section_id
+        ]);
+        session()->flash('success', 'تم اضافة المنتج بنجاح');
+        return redirect()->back();
     }
 
     /**
@@ -52,7 +69,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $this->validate($request, [
+
+            'name'          => 'required|max:255',
+        ],[
+            'name.required' =>'يرجي ادخال اسم المنتج',
+        ]);
+        $product->update([
+            'name'          => $request->name,
+            'description'   => $request->description
+        ]);
+        session()->flash('success', 'تم تعديل المنتج بنجاح');
+        return redirect()->back();
     }
 
     /**
@@ -60,6 +88,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        session()->flash('success', 'تم حذف المنتج بنجاح');
+        return redirect()->back();
     }
 }
