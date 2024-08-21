@@ -30,5 +30,12 @@ class Invoice extends Model
     {
         return $this->belongsTo(Section::class);
     }
-
+    public function Invoice_Details()
+    {
+        return $this->hasMany(Invoices_Details::class);
+    }
+    public function Invoice_attachments()
+    {
+        return $this->hasMany(Invoice_attachments::class);
+    }
 }
