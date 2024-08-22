@@ -103,7 +103,8 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        //
+        $sections = Section::all();
+        return view('invoices.edit',compact('sections','invoice'));
     }
 
     /**
@@ -111,7 +112,32 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
-        //
+        $invoice->update([
+            'invoice_number'    => $request->invoice_number,
+            'invoice_Date'      => $request->invoice_Date,
+            'Due_date'          => $request->Due_date,
+            'product'           => $request->product,
+            'section_id'        => $request->Section,
+            'Amount_collection' => $request->Amount_collection,
+            'Amount_Commission' => $request->Amount_Commission,
+            'Discount'          => $request->Discount,
+            'Value_VAT'         => $request->Value_VAT,
+            'Rate_VAT'          => $request->Rate_VAT,
+            'Total'             => $request->Total,
+            'note'              => $request->note,
+        ]);
+        //update Invoice Dateils
+        DB::table('invoices_details')->where('invoice_id', $invoice->id)->update([
+            'invoice_id'        => $invoice->id,
+            'invoice_number'    => $request->invoice_number,
+            'product'           => $request->product,
+            'Section'           => $request->Section,
+            'note'              => $request->note,
+            'Payment_Date'      => $request->Due_date,
+            'user'              => Auth::user()->name
+        ]);
+        session()->flash('success', 'تم تعديل الفاتورة بنجاح');
+        return back();
     }
 
     /**
@@ -188,12 +214,9 @@ class InvoiceController extends Controller
             $attachments->Created_by = Auth::user()->name;
             $attachments->invoice_id = $request->invoice_id;
             $attachments->save();
-
             // move pic
             $imageName = $request->file_name->getClientOriginalName();
             $request->file_name->move(public_path('Attachments/' . $invoice_number), $imageName);
-
-        
         session()->flash('success', 'تم اضافة المرفق بنجاح');
         return back();
     }
