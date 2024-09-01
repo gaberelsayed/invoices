@@ -66,11 +66,9 @@
                             <label for="inputName" class="control-label">القسم</label>
                             <select name="Section" class="form-control SlectBox">
                                 <!--placeholder-->
-                                <option value=" {{ $invoice->section->id }}">
-                                    {{ $invoice->section->name }}
-                                </option>
+                                
                                 @foreach ($sections as $section)
-                                    <option value="{{ $section->id }}"> {{ $section->name }}</option>
+                                    <option value="{{ $section->id }}" {{ ($invoice->section_id == $section->id)? 'selected':'' }}> {{ $section->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -143,11 +141,28 @@
                     <div class="row">
                         <div class="col">
                             <label for="exampleTextarea">ملاحظات</label>
-                            <textarea class="form-control" id="exampleTextarea" name="note" rows="3">
-                            {{ $invoice->note }}</textarea>
+                            <textarea class="form-control" id="exampleTextarea" name="note" rows="3">{{ $invoice->note }}</textarea>
                         </div>
                     </div><br>
+                    <div class="row">
+                        <div class="col">
+                            <label for="exampleTextarea">حالة الدفع</label>
+                            <select class="form-control" id="Status" name="Status" required>
+                                <option {{ ($invoice->Value_Status == '2')? 'selected': '' }} value="2">غير مدفوعة</option>
+                                <option {{ ($invoice->Value_Status == '1')? 'selected': '' }} value="1">مدفوعة</option>
+                                <option {{ ($invoice->Value_Status == '3')? 'selected': '' }} value="3">مدفوعة جزئيا</option>
+                            </select>
+                        </div>
 
+                        <div class="col">
+                            <label>تاريخ الدفع</label>
+                            <input class="form-control fc-datepicker" name="Payment_Date" value="{{ $invoice->Payment_Date }}" placeholder="YYYY-MM-DD"
+                                type="text">
+                        </div>
+
+
+                    </div>
+                    <br>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary">حفظ البيانات</button>
                     </div>

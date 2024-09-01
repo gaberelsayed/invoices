@@ -112,6 +112,11 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
+        //update invoice status
+        $status = 'غير مدفوعة';
+        if($request->has('Status') && $request->Status != 2){
+            ($request->Status == 1)? $status = 'مدفوعة' : $status='مدفوعة جزئياً';
+        }
         $invoice->update([
             'invoice_number'    => $request->invoice_number,
             'invoice_Date'      => $request->invoice_Date,
@@ -125,6 +130,9 @@ class InvoiceController extends Controller
             'Rate_VAT'          => $request->Rate_VAT,
             'Total'             => $request->Total,
             'note'              => $request->note,
+            'Value_Status'      => $request->Status,
+            'Status'            => $status,
+            'Payment_Date'      => $request->Payment_Date,
         ]);
         //update Invoice Dateils
         DB::table('invoices_details')->where('invoice_id', $invoice->id)->update([
@@ -133,9 +141,23 @@ class InvoiceController extends Controller
             'product'           => $request->product,
             'Section'           => $request->Section,
             'note'              => $request->note,
-            'Payment_Date'      => $request->Due_date,
+            'Payment_Date'      => $request->Payment_Date,
             'user'              => Auth::user()->name
         ]);
+        if($request->has('Status') && $request->Status != 2)
+        {
+            Invoices_Details::create([
+                'invoice_id'        => $invoice->id,
+                'invoice_number'    => $request->invoice_number,
+                'product'           => $request->product,
+                'Section'           => $request->Section,
+                'note'              => $request->note,
+                'Value_Status'      => $request->Status,
+                'Status'            => $status,
+                'Payment_Date'      => $request->Payment_Date,
+                'user'              => Auth::user()->name
+            ]);
+        }               
         session()->flash('success', 'تم تعديل الفاتورة بنجاح');
         return back();
     }
@@ -143,9 +165,13 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Request $request)
     {
-        //
+        $invoice = Invoice::findOrFail($request->invoice_id);
+        $invoice->delete();
+        session()->flash('success', 'تم حذف الفاتورة بنجاح');
+        return back();
+
     }
     /**
      * get the section products

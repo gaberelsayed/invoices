@@ -26,6 +26,7 @@ class Invoice extends Model
         'note',
         'Payment_Date',
     ];
+    protected $deleted_at;
     public function section()
     {
         return $this->belongsTo(Section::class);

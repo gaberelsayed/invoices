@@ -10,8 +10,7 @@
     <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
-    <!--Internal   Notify -->
-    <link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
+    
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -96,6 +95,14 @@
                                                     تعديل الفاتورة</a>
                                             
                                             {{-- @endcan --}}
+                                            
+                                            {{--@can('ارشفة الفاتورة')--}}
+                                            
+                                                <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
+                                                    data-toggle="modal" data-target="#Transfer_invoice"><i
+                                                        class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
+                                                    الارشيف</a>
+                                            {{-- @endcan --}}
                                             {{-- @can('حذف الفاتورة') --}}
                                             
                                                 <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
@@ -106,21 +113,15 @@
                                             {{-- @endcan --}}
                                             {{-- @can('تغير حالة الدفع') --}}
                                             
-                                                <a class="dropdown-item"
+                                                <!--<a class="dropdown-item"
                                                     href="{{ URL::route('invoices.show', [$invoice->id]) }}"><i
                                                         class=" text-success fas
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             fa-money-bill"></i>&nbsp;&nbsp;تغير
                                                     حالة
-                                                    الدفع</a>
+                                                    الدفع</a>-->
                                             
                                             {{-- @endcan --}}
-                                            {{--@can('ارشفة الفاتورة')--}}
                                             
-                                                <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
-                                                    data-toggle="modal" data-target="#Transfer_invoice"><i
-                                                        class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
-                                                    الارشيف</a>
-                                            {{-- @endcan --}}
                                             {{-- @can('طباعةالفاتورة') --}}
                                             
                                                 <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
@@ -145,7 +146,7 @@
             </div>
         </div>
     </div>
-    
+@include('invoices.delete')  
 
 </div>
 <!-- row closed -->
@@ -174,10 +175,7 @@
     <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
-    <!--Internal  Notify js -->
-    <script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
-
+    
     <script>
         $('#delete_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
