@@ -150,7 +150,7 @@
                         </div><br>
 
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                            <button type="submit" id="submit_invoice" class="btn btn-primary">حفظ البيانات</button>
                         </div>
 
 
@@ -203,6 +203,7 @@
 
     <script>
         $(document).ready(function() {
+            
             $('select[name="Section"]').on('change', function() {
                 var SectionId = $(this).val();
                 if (SectionId) {

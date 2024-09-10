@@ -29,7 +29,7 @@
             @include('includes.success')
             @include('includes.errors')
             @yield('content')
-            @include('includes.sidebar')
+            {{-- @include('includes.sidebar') --}}
             @include('includes.models')
             @include('includes.footer')
             @include('includes.footer-scripts')

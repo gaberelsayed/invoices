@@ -1,21 +1,20 @@
-<!-- ارشيف الفاتورة -->
-<div class="modal fade" id="delete_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!--الغاء الارشفة-->
+<div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">حذف الفاتورة</h5>
+            <h5 class="modal-title" id="exampleModalLabel">الغاء ارشفة الفاتورة</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <form action="{{ url('invoices/destroy') }}" method="post">
-                {{ method_field('delete') }}
+            <form action="{{ url('invoices_archive/edit') }}" method="post">
+                {{ method_field('patch') }}
                 {{ csrf_field() }}
         </div>
         <div class="modal-body">
-            هل انت متاكد من عملية الحذف ؟
+            هل انت متاكد من عملية الغاء الارشفة ؟
             <input type="hidden" name="invoice_id" id="invoice_id" value="">
-            <input type="hidden" name="id_page" id="id_page" value="1">
 
         </div>
         <div class="modal-footer">

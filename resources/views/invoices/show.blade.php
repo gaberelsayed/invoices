@@ -160,11 +160,12 @@
 
                                             </div>
                                         </div>
-
+                                        
 
                                         <div class="tab-pane" id="tab6">
                                             <!--المرفقات-->
                                             <div class="card card-statistics">
+                                                @isset($page_type)
                                                 {{-- @can('اضافة مرفق') --}}
                                                     <div class="card-body">
                                                         <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
@@ -186,6 +187,7 @@
                                                                 name="uploadedFile">تاكيد</button>
                                                         </form>
                                                     </div>
+                                                    @endisset
                                                 {{-- @endcan --}}
                                                 <br>
 
@@ -226,12 +228,14 @@
                                                                             تحميل</a>
 
                                                                         {{-- @can('حذف المرفق') --}}
+                                                                        @isset($page_type)
                                                                             <button class="btn btn-outline-danger btn-sm"
                                                                                 data-toggle="modal"
                                                                                 data-file_name="{{ $attachment->file_name }}"
                                                                                 data-invoice_number="{{ $attachment->invoice_number }}"
                                                                                 data-id_file="{{ $attachment->id }}"
                                                                                 data-target="#delete_file">حذف</button>
+                                                                        @endisset
                                                                         {{-- @endcan --}}
 
                                                                     </td>

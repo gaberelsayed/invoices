@@ -17,9 +17,7 @@ function myFunction() {
         document.getElementById("Discount").value = null;
     }else{
         var Amount_Commission2 = Amount_Commission - Discount;
-        if (typeof Amount_Commission === 'undefined' || !Amount_Commission) {
-            alert('يرجي ادخال مبلغ العمولة ');
-        } else {
+        
             var intResults = Amount_Commission2 * Rate_VAT / 100;
             var intResults2 = parseFloat(intResults + Amount_Commission2);
 
@@ -31,7 +29,7 @@ function myFunction() {
 
             document.getElementById("Total").value = sumt;
 
-        }
+        
 
     }
     

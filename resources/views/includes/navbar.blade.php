@@ -90,7 +90,7 @@
                         
                         {{-- @endcan --}}
                         {{-- @can('ارشيف الفواتير') --}}
-                            <li><a class="slide-item" href="{{ url('/' . ($page = 'Archive')) }}">ارشيف الفواتير</a></li>
+                            <li><a class="slide-item" href="{{ url('invoices_archive') }}">ارشيف الفواتير</a></li>
                         {{-- @endcan --}}
                     </ul>
                 </li>

@@ -8,7 +8,7 @@ aria-hidden="true">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <form action="{{ url('invoices/destroy') }}" method="post">
+            <form action="{{ url('invoices_archive/destroy') }}" method="post">
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
         </div>

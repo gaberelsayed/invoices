@@ -17,9 +17,16 @@ class InvoiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($page_id = null)
     {
-        $invoices = Invoice::all();
+        if($page_id == 'archive')
+        {
+            
+        }
+        else{
+            $invoices = Invoice::all();
+        }
+        
         return view('invoices.index',compact('invoices'));
     }
 
@@ -95,7 +102,8 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        return view('invoices.show',compact('invoice'));
+        $page_type = true;
+        return view('invoices.show',compact('invoice','page_type'));
     }
 
     /**
@@ -167,10 +175,22 @@ class InvoiceController extends Controller
      */
     public function destroy(Request $request)
     {
+        $page_id = $request->id_page;
         $invoice = Invoice::findOrFail($request->invoice_id);
-        $invoice->delete();
-        session()->flash('success', 'تم حذف الفاتورة بنجاح');
-        return back();
+        if($page_id == 2){
+            $invoice->delete();
+            session()->flash('success', 'تم أرشفة الفاتورة بنجاح');
+        }
+        else{
+            //delete Attachments
+            if(! empty($invoice->Invoice_attachments))
+                Storage::disk('public_uploads')->deleteDirectory($invoice->invoice_number);
+
+            $invoice->forceDelete();
+            session()->flash('success', 'تم حذف الفاتورة بنجاح');
+        }
+        
+        return redirect()->back();
 
     }
     /**
