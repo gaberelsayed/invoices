@@ -33,15 +33,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('invoices', InvoiceController::class);
     //get invoices archive
     Route::resource('invoices_archive',InvoiceArchiveController::class);
-    /*Route::get('invoices_archive',[InvoicesArchiveController::class,'index']);
-    Route::get('show_invoice/{id}',[InvoicesArchiveController::class,'show_invoice'])->name('show_invoice');
-    Route::get('delete_invoice/{id}',[InvoicesArchiveController::class, 'destroy'])->name('delete_invoice');
-    Route::get('restore_invoice/{id}',[InvoicesArchiveController::class,'restore_invoice'])->name('restore_invoice');*/
     //Attachment Links
     Route::get('viewFile/{invoice_number}/{file_name}',[InvoiceController::class , 'view_file']);
     Route::get('downloadFile/{invoice_number}/{file_name}',[InvoiceController::class , 'download_file']);
     Route::delete('delete_file',[InvoiceController::class,'delete_file'])->name('delete_file');
     Route::post('uploadFile',[InvoiceController::class , 'uploadFile']);
+    Route::get('Print_invoice/{id}',[InvoiceController::class,'print_invoice']);
     //get section products
     Route::get('/section/{id}',[InvoiceController::class,'getProducts']);
 });

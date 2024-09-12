@@ -7,15 +7,15 @@ function myFunction() {
     var Amount_Collection = parseFloat(document.getElementById("inputName").value) || 0;
 
     // التحقق من عدم تجاوز مبلغ العمولة لمبلغ التحصيل
-    if (Amount_Commission > Amount_Collection) {
-        alert('مبلغ العمولة لا يمكن أن يكون أكبر من مبلغ التحصيل.');
+    /*if (Amount_Commission > Amount_Collection) {
+        //alert('مبلغ العمولة لا يمكن أن يكون أكبر من مبلغ التحصيل.');
         document.getElementById("Amount_Commission").value = null;
     }
     //التحقق من عدم تجاوز مبلغ الخصم مبلغ العمولة
     else if (Discount > Amount_Collection) {
-        alert('مبلغ الخصم لا يمكن أن يكون أكبر من مبلغ العمولة.');
+        //alert('مبلغ الخصم لا يمكن أن يكون أكبر من مبلغ العمولة.');
         document.getElementById("Discount").value = null;
-    }else{
+    }else{*/
         var Amount_Commission2 = Amount_Commission - Discount;
         
             var intResults = Amount_Commission2 * Rate_VAT / 100;
@@ -29,9 +29,7 @@ function myFunction() {
 
             document.getElementById("Total").value = sumt;
 
-        
-
-    }
+   // }
     
 }
 // إضافة الأحداث لتشغيل الدالة عند التغيير

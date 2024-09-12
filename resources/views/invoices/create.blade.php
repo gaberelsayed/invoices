@@ -112,8 +112,8 @@
                                 <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
                                     <!--placeholder-->
                                     <option value="" selected disabled>حدد نسبة الضريبة</option>
-                                    <option value=" 5%">5%</option>
-                                    <option value="10%">10%</option>
+                                    <option value="5">5%</option>
+                                    <option value="10">10%</option>
                                 </select>
                             </div>
 

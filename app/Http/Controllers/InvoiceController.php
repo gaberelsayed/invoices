@@ -266,4 +266,14 @@ class InvoiceController extends Controller
         session()->flash('success', 'تم اضافة المرفق بنجاح');
         return back();
     }
+    /**
+     * print Invoice
+     * @param Int $id
+     * @return record
+     */
+    public function print_invoice($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        return view('invoices.print_invoice',compact('invoice'));
+    }
 }
