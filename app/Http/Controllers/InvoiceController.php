@@ -7,7 +7,10 @@ use App\Models\Invoice;
 use App\Models\Invoice_attachments;
 use App\Models\Invoices_Details;
 use App\Models\Section;
+use App\Models\User;
+use App\Notifications\InvoiceCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -93,6 +96,8 @@ class InvoiceController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
 
         }
+        $user = User::first();
+        Notification::send($user , new InvoiceCreated($invoice_id));
         session()->flash('success', 'تم اضافة الفاتورة بنجاح');
         return back();
     }
