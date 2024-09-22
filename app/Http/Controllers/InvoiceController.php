@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InvoiceExport;
 use App\Http\Requests\CreateInvoiceRequest;
 use App\Models\Invoice;
 use App\Models\Invoice_attachments;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
@@ -280,5 +282,19 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
         return view('invoices.print_invoice',compact('invoice'));
+    }
+    public function export()
+    {
+        return Excel::download(new InvoiceExport(),'invoices.xlsx');
+    }
+    /**
+     * get invoices by type
+     * @param string type
+     * @return array
+     */
+    public function get_invoices($invoice_type)
+    {
+        $invoices = Invoice::where('Value_Status',$invoice_type)->get();
+        return view('invoices.index',compact('invoices'));
     }
 }

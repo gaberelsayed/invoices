@@ -5,7 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceArchiveController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\UsersController;
 use App\Models\Invoices_Details;
 
 /*
@@ -23,7 +25,7 @@ use App\Models\Invoices_Details;
 Auth::routes(['register' => false]);
 //start the main routes
 Route::middleware(['auth'])->group(function () {
-    
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
     //Sections Routes
     Route::resource('sections', SectionController::class)->except('show');
@@ -31,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('products', ProductController::class)->except('show');
     //Inovices Route
     Route::resource('invoices', InvoiceController::class);
+    Route::get('invoices.export',[InvoiceController::class,'export'])->name('invoices.export');
+    Route::get('get_invoices/{type}',[InvoiceController::class,'get_invoices']);
     //get invoices archive
     Route::resource('invoices_archive',InvoiceArchiveController::class);
     //Attachment Links
@@ -39,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('delete_file',[InvoiceController::class,'delete_file'])->name('delete_file');
     Route::post('uploadFile',[InvoiceController::class , 'uploadFile']);
     Route::get('Print_invoice/{id}',[InvoiceController::class,'print_invoice']);
+    Route::get('export_invoices',[InvoiceController::class,'export']);
     //get section products
     Route::get('/section/{id}',[InvoiceController::class,'getProducts']);
+    //ٌroles routes
+    Route::resource('roles', RoleController::class);
+    //Users Routes
+    Route::resource('users', UsersController::class);
 });

@@ -199,27 +199,27 @@
                                 </div>
                                 <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">
                                 <h6 style="color: yellow" id="notifications_count">
-                                    {{ auth()->user()->unreadNotifications->count() }}
+                                    {{-- auth()->user()->unreadNotifications->count() --}}
                                 </h6>
                                 </p>
                             </div>
                             <div id="unreadNotifications">
-                                @foreach (auth()->user()->unreadNotifications as $notification)
-                                    <div class="main-notification-list Notification-scroll">
+                                {{-- @foreach (auth()->user()->unreadNotifications as $notification) --}}
+                                    <!--<div class="main-notification-list Notification-scroll">
                                         <a class="d-flex p-3 border-bottom"
-                                            href="{{ url('InvoicesDetails') }}/{{ $notification->data['id'] }}">
+                                            href="{{--url('InvoicesDetails') --}}/{{-- $notification->data['id'] --}}">
                                             <div class="notifyimg bg-pink">
                                                 <i class="la la-file-alt text-white"></i>
                                             </div>
                                             <div class="mr-3">
-                                                <h5 class="notification-label mb-1">{{ $notification->data['title'] }}
-                                                    {{ $notification->data['user'] }}
+                                                <h5 class="notification-label mb-1">{{-- $notification->data['title'] --}}
+                                                    {{-- $notification->data['user'] --}}
                                                 </h5>
-                                                <div class="notification-subtext">{{ $notification->created_at }}</div>
+                                                <div class="notification-subtext">{{-- $notification->created_at --}}</div>
                                             </div>
                                         </a>
-                                    </div>
-                                @endforeach
+                                    </div>-->
+                                {{-- @endforeach --}}
 
                             </div>
                         </div>

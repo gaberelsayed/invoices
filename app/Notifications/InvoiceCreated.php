@@ -34,7 +34,7 @@ class InvoiceCreated extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = 'http://inovices.loc/invoices/show/'.$this->invoice_id;
+        $url = 'http://inovices.loc/invoices/'.$this->invoice_id;
         return (new MailMessage)
         ->subject('اضافة فاتورة جديدة')
         ->line('تم اضافة فاتورة جديدة')
