@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -12,11 +13,10 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $roles = Role::orderBy('id','DESC')->paginate(10);
-        return view('roles.index',compact('roles'))
-        ->with('i',($request->input('page',1)-1) * 10);
+        $roles = Role::get();
+        return view('roles.index',compact('roles'));
     }
 
     /**
@@ -34,7 +34,7 @@ class RoleController extends Controller
     public function store(CreateRoleRequest $request)
     {
         $role =Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions(array_map(fn($val)=>(int)$val, $request->input('permission')));
         session()->flash('success', 'تم اضافة الصلاحيات بنجاح');
         return redirect()->back();
     }
@@ -58,16 +58,23 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $permission = Permission::get();
-        $rolePermissions = DB::table();
-        return view('roles.edit',compact('role','permission'));
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+        ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+        ->all();
+        return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRoleRequest $request, string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->name = $request->input('name');
+        $role->save();
+        $role->syncPermissions(array_map(fn($val)=>(int)$val, $request->input('permission')));
+        session()->flash('success', 'تم تعديل الصلاحيات بنجاح');
+        return redirect()->back();
     }
 
     /**
@@ -75,6 +82,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role= Role::findOrFail($id);
+        $role->delete();
+        session()->flash('success', 'تم الحذف بنجاح');
+        return redirect()->back();
     }
 }

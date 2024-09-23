@@ -35,22 +35,21 @@
                     </div>
                     <div class="row">
                         <!-- col -->
-                        <div class="col-lg-4">
-                            <ul id="treeview1">
-                                <li><a href="#">الصلاحيات</a>
-                                    <ul>
-                                        <li>
-                                            @foreach($permission as $value)
+                        
+                                            @foreach($permission as $index=>$value)
+                                            <div class="col-md-3">
                                                 <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
                                                     {{ $value->name }}</label>
                                                 <br />
+                                            </div>
+                                            @if(($index + 1) % 4 == 0) <!-- ابدأ صف جديد بعد كل 4 عناصر -->
+                                        </div>
+                                   
+                                        <div class="row">
+                                            
+                                    @endif
                                             @endforeach
-                                        </li>
-
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                                       
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                             <button type="submit" class="btn btn-main-primary">تحديث</button>
                         </div>
