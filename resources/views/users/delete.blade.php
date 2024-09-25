@@ -5,7 +5,7 @@
                 <h6 class="modal-title">حذف المستخدم</h6><button aria-label="Close" class="close"
                     data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{ route('users.destroy', 'test') }}" method="post">
+            <form action="{{ url('users/destroy') }}" method="post">
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
                 <div class="modal-body">

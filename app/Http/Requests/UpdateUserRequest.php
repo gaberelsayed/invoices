@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -21,12 +22,17 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('users');
+        $id = $this->route('user');
+        
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'name' => 'required|string|max:255', // التأكد من أن الاسم مطلوب وله طول محدد
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id), // التحقق من تفرد البريد الإلكتروني مع استثناء المستخدم الحالي
+            ],
+            'password' => $id ? 'nullable|min:8|confirmed' : 'required|min:8|confirmed', // كلمة المرور مطلوبة عند الإنشاء، اختيارية عند التحديث، ويجب أن تكون متطابقة مع تأكيد كلمة المرور
+            'roles_name' => 'required', // التأكد من أن الأدوار مطلوبة ويتم تمريرها كـ array
         ];
     }
 }

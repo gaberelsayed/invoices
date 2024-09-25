@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Arr;
 
 class UsersController extends Controller
 {
@@ -69,17 +70,17 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
+        $user = User::findOrFail($id);
         $input = $request->all();
         if(!empty($input['password']))
         {
             $input['password'] = Hash::make($input['password']);
         }
         else{
-            $input = array_except($input,array('password'));
-        }
-        $user = User::findOrFail($id);
-        $user->update($input);
+            $input = Arr::except($input, ['password']);
+        }      
         
+        $user->update($input);        
         session()->flash('success', 'تم تعديل المستخدم بنجاح');
         return back();
     }
@@ -87,9 +88,9 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($request->user_id);
         $user->delete();
         session()->flash('success', 'تم حذف المستخدم بنجاح');
         return back();
