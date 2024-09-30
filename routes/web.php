@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
     //Users Routes
     Route::resource('users', UsersController::class);
     //reports routes
-    Route::get('invoices_reports',[InvoicesReportsController::class,'index']);
+    Route::get('invoices_report',[InvoicesReportsController::class,'index']);
     Route::get('customers_report',[ClientsReportsController::class,'index']);
     // search in invoices routes
     Route::post('Search_invoices',[InvoicesReportsController::class , 'search_reports']);
