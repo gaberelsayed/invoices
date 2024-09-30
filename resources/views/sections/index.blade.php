@@ -31,12 +31,12 @@
         <div class="card mg-b-20">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    {{-- @can('اضافة قسم') --}}
+                    @can('اضافة قسم')
                         <a class="modal-effect btn btn-primary " data-effect="effect-scale"
                             data-toggle="modal" href="#modaldemo8"> 
                             <i class="fa fa-plus"></i> إضافة قسم
                         </a>
-                    {{-- @endcan --}}
+                    @endcan
                 </div>
 
             </div>
@@ -60,17 +60,17 @@
                                     <td>{{ $x->name }}</td>
                                     <td>{{ $x->description }}</td>
                                     <td>
-                                        {{-- @can('تعديل قسم') --}}
+                                        @can('تعديل قسم')
                                             <a class="btn btn-info"
                                                 href="{{ route('sections.edit',$x->id) }}"><i class="las la-pen"></i></a>
-{{--                                         @endcan
- --}}
-                                        {{-- @can('حذف قسم') --}}
+                                         @endcan
+
+                                        @can('حذف قسم')
                                         <button class="btn btn-danger" data-id="{{ $x->id }}"
                                             data-name="{{ $x->name }}" data-toggle="modal"
                                             data-target="#modaldemo9"><i class="las la-trash"></i></button>
-{{--                                         @endcan
- --}}
+                                       @endcan
+
                                                 </td>
                                 </tr>
                             @endforeach

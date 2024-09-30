@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class InvoiceArchiveController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:ارشيف الفواتير', ['only' => ['index']]);
+        $this->middleware('permission:حذف الفاتورة', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

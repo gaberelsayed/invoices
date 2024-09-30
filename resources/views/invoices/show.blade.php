@@ -166,7 +166,7 @@
                                             <!--المرفقات-->
                                             <div class="card card-statistics">
                                                 @isset($page_type)
-                                                {{-- @can('اضافة مرفق') --}}
+                                                @can('اضافة مرفق')
                                                     <div class="card-body">
                                                         <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
                                                         <h5 class="card-title">اضافة مرفقات</h5>
@@ -188,7 +188,7 @@
                                                         </form>
                                                     </div>
                                                     @endisset
-                                                {{-- @endcan --}}
+                                                @endcan
                                                 <br>
 
                                                 <div class="table-responsive mt-15">

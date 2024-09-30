@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ClientsReportsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceArchiveController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoicesReportsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
@@ -50,4 +52,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('roles', RoleController::class);
     //Users Routes
     Route::resource('users', UsersController::class);
+    //reports routes
+    Route::get('invoices_reports',[InvoicesReportsController::class,'index']);
+    Route::get('customers_report',[ClientsReportsController::class,'index']);
+    // search in invoices routes
+    Route::post('Search_invoices',[InvoicesReportsController::class , 'search_reports']);
+    Route::post('Search_customers',[ClientsReportsController::class , 'search_customers']);
 });

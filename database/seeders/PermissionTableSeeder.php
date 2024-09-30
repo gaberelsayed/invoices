@@ -15,7 +15,6 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             'الفواتير',
-            'قائمة الفواتير',
             'الفواتير المدفوعة',
             'الفواتير المدفوعة جزئيا',
             'الفواتير الغير مدفوعة',

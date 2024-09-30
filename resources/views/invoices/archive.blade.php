@@ -82,21 +82,21 @@
                                         <div class="dropdown-menu tx-13">
                                             
                                             
-                                            {{--@can('ارشفة الفاتورة')--}}
+                                            @can('ارشفة الفاتورة')
                                             
                                                 <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
                                                     data-toggle="modal" data-target="#Transfer_invoice"><i
                                                         class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
                                                     الفواتير</a>
-                                            {{-- @endcan --}}
-                                            {{-- @can('حذف الفاتورة') --}}
+                                            @endcan
+                                            @can('حذف الفاتورة')
                                             
                                                 <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
                                                     data-toggle="modal" data-target="#delete_invoice"><i
                                                         class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
                                                     الفاتورة</a>
                                             
-                                            {{-- @endcan --}}
+                                            @endcan
                                            
                                             
                                         </div>

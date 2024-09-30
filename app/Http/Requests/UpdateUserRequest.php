@@ -31,7 +31,7 @@ class UpdateUserRequest extends FormRequest
                 'email',
                 Rule::unique('users')->ignore($id), // التحقق من تفرد البريد الإلكتروني مع استثناء المستخدم الحالي
             ],
-            'password' => $id ? 'nullable|min:8|confirmed' : 'required|min:8|confirmed', // كلمة المرور مطلوبة عند الإنشاء، اختيارية عند التحديث، ويجب أن تكون متطابقة مع تأكيد كلمة المرور
+            'password' => 'nullable|min:8|same:confirm-password', // كلمة المرور مطلوبة عند الإنشاء، اختيارية عند التحديث، ويجب أن تكون متطابقة مع تأكيد كلمة المرور
             'roles_name' => 'required', // التأكد من أن الأدوار مطلوبة ويتم تمريرها كـ array
         ];
     }
