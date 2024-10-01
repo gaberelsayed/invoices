@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('get_invoices/{type}',[InvoiceController::class,'get_invoices']);
     //get invoices archive
     Route::resource('invoices_archive',InvoiceArchiveController::class);
+    Route::get('MarkAsRead_all',[InvoiceController::class,'MarkAsRead_all'])->name('MarkAsRead_all');
+
     //Attachment Links
     Route::get('viewFile/{invoice_number}/{file_name}',[InvoiceController::class , 'view_file']);
     Route::get('downloadFile/{invoice_number}/{file_name}',[InvoiceController::class , 'download_file']);

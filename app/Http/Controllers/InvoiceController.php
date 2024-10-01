@@ -9,6 +9,7 @@ use App\Models\Invoice_attachments;
 use App\Models\Invoices_Details;
 use App\Models\Section;
 use App\Models\User;
+use App\Notifications\InvoiceCompleted;
 use App\Notifications\InvoiceCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -95,7 +96,6 @@ class InvoiceController extends Controller
         //add invoice attachments code
         if($request->hasFile('pic'))
         {
-            $invoice_id = Invoice::latest()->first()->id;
             $image = $request->file('pic');
             $file_name = $image->getClientOriginalName();
             $invoice_number = $request->invoice_number;
@@ -113,8 +113,9 @@ class InvoiceController extends Controller
         }
         $user = User::first();
         Notification::send($user , new InvoiceCreated($invoice_id));
+        Notification::send($user , new InvoiceCompleted($invoice_id));
         session()->flash('success', 'تم اضافة الفاتورة بنجاح');
-        return back();
+        return redirect()->route('invoices.index');
     }
 
     /**
@@ -187,7 +188,7 @@ class InvoiceController extends Controller
             ]);
         }               
         session()->flash('success', 'تم تعديل الفاتورة بنجاح');
-        return back();
+        return redirect()->route('invoices.index');
     }
 
     /**
@@ -309,5 +310,17 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::where('Value_Status',$invoice_type)->get();
         return view('invoices.index',compact('invoices'));
+    }
+    public function MarkAsRead_all (Request $request)
+    {
+
+        $userUnreadNotification= auth()->user()->unreadNotifications;
+
+        if($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+
+
     }
 }

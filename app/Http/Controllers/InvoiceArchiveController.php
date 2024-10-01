@@ -62,7 +62,7 @@ class InvoiceArchiveController extends Controller
     {
         $invoice = Invoice::withTrashed()->where('id', $request->invoice_id)->restore();
         session()->flash('success', 'تم نقل الفاتورة بنجاح');
-        return redirect()->back();
+        return redirect()->route('invoices_archive.index');
     }
 
     /**
